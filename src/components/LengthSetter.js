@@ -3,18 +3,22 @@ import "./LengthSetter.css";
 function LengthSetter( {name, timer, setTimer} ) {
 
     function plus1() {
+        if (timer[name] === 59) return;
+
         setTimer({
             ...timer,
             [name]: timer[name] + 1,
-            remainingTime: timer.mode === name ? timer[name] + 1 : timer.remainingTime
+            remainingTime: timer.mode === name ? (timer[name] + 1) * 60 * 1000 : timer.remainingTime
         });
     }
 
     function minus1() {
+        if (timer[name] === 1) return;
+
         setTimer({
             ...timer,
             [name]: timer[name] - 1,
-            remainingTime: timer.mode === name ? timer[name] - 1 : timer.remainingTime
+            remainingTime: timer.mode === name ? (timer[name] - 1) * 60 * 1000 : timer.remainingTime
         });
     }
 

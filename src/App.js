@@ -5,11 +5,14 @@ import Button from "./components/Button";
 import { useState } from "react";
 let interval;
 
+let audio = new Audio("break.mp3");
+
 function App() {
+  
   const [timer, setTimer] = useState({
-    break: 5,
-    session: 10,
-    remainingTime: 10,
+    break: 1,
+    session: 1,
+    remainingTime: 1 * 60 * 1000,
     mode: 'session',
     isRunning: false,
   });
@@ -17,17 +20,18 @@ function App() {
   
   function startTimer() {
     interval = setInterval(function() {
+
       setTimer(timer => {
         if (timer.remainingTime === 0) {
           return {
             ...timer,
-            remainingTime: timer.mode === 'session' ? timer.break : timer.session,
+            remainingTime: (timer.mode === 'session' ? timer.break : timer.session) * 60 * 1000,
             mode: timer.mode === 'session' ? 'break' : 'session'
           }
         }
         return {
           ...timer,
-          remainingTime: timer.remainingTime - 1}
+          remainingTime: timer.remainingTime - 1000}
       });
     }, 1000);
   }
@@ -37,6 +41,7 @@ function App() {
   }
   
   function startStopClickHandler() {
+    audio.play();
     setTimer({
       ...timer,
       isRunning: !timer.isRunning
@@ -47,9 +52,9 @@ function App() {
   function resetClickHandler() {
     clearInterval(interval);
     setTimer({
-      break: 5,
-      session: 10,
-      remainingTime: 10,
+      break: 1,
+      session: 1,
+      remainingTime: 1 * 60 * 1000,
       mode: 'session',
       isRunning: false,
     })
