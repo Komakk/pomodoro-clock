@@ -1,0 +1,24 @@
+.length-setter {
+    width: 100%;
+    height: 100px;
+    text-align: center;
+}
+
+.lengthBox {
+    margin: 10px 10px 0 10px;
+    display: flex;
+    justify-content: space-between;
+
+}
+
+.length-setter button {
+    width: 30px;
+    height: 30px;
+    font-weight: bolder;
+}
+
+.disabledbutton {
+    pointer-events: none;
+    opacity: 0.4;
+}
+  

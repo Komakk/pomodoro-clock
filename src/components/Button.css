@@ -1,0 +1,7 @@
+.btn {
+    width: 50%;
+    height: 50px;
+    margin: 25px auto;
+    display: block;
+    font-weight: bolder;
+}
