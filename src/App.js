@@ -3,16 +3,15 @@ import Wrapper from "./components/Wrapper";
 import Timer from "./components/Timer";
 import Button from "./components/Button";
 import { useState } from "react";
-let interval;
 
-let audio = new Audio("break.mp3");
+let interval;
+const sound = document.getElementById('beep');
 
 function App() {
-  
   const [timer, setTimer] = useState({
-    break: 1,
-    session: 1,
-    remainingTime: 1 * 60 * 1000,
+    break: 5,
+    session: 25,
+    remainingTime: 25 * 60 * 1000,
     mode: 'session',
     isRunning: false,
   });
@@ -20,9 +19,9 @@ function App() {
   
   function startTimer() {
     interval = setInterval(function() {
-
       setTimer(timer => {
         if (timer.remainingTime === 0) {
+          playSound();
           return {
             ...timer,
             remainingTime: (timer.mode === 'session' ? timer.break : timer.session) * 60 * 1000,
@@ -41,7 +40,7 @@ function App() {
   }
   
   function startStopClickHandler() {
-    audio.play();
+    playSound();
     setTimer({
       ...timer,
       isRunning: !timer.isRunning
@@ -50,16 +49,25 @@ function App() {
   }
 
   function resetClickHandler() {
+    stopSound();
     clearInterval(interval);
     setTimer({
-      break: 1,
-      session: 1,
-      remainingTime: 1 * 60 * 1000,
+      break: 5,
+      session: 25,
+      remainingTime: 25 * 60 * 1000,
       mode: 'session',
       isRunning: false,
     })
   }
-  
+
+  function playSound() {
+    sound.play();
+  }
+
+  function stopSound() {
+    sound.pause();
+    sound.load();
+  }  
   return (
     <div>
       <Wrapper>

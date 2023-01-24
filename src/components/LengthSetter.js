@@ -3,7 +3,7 @@ import "./LengthSetter.css";
 function LengthSetter( {name, timer, setTimer} ) {
 
     function plus1() {
-        if (timer[name] === 59) return;
+        if (timer[name] >= 60) return;
 
         setTimer({
             ...timer,
@@ -13,7 +13,7 @@ function LengthSetter( {name, timer, setTimer} ) {
     }
 
     function minus1() {
-        if (timer[name] === 1) return;
+        if (timer[name] <= 1) return;
 
         setTimer({
             ...timer,
