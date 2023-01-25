@@ -2,10 +2,10 @@ import LengthSetter from "./components/LengthSetter";
 import Wrapper from "./components/Wrapper";
 import Timer from "./components/Timer";
 import Button from "./components/Button";
-import { useState } from "react";
+import { useRef, useState } from "react";
 
 let interval;
-const sound = document.getElementById('beep');
+//const sound = document.getElementById('beep');
 
 function App() {
   const [timer, setTimer] = useState({
@@ -15,6 +15,7 @@ function App() {
     mode: 'session',
     isRunning: false,
   });
+  const ref = useRef(null);
 
   
   function startTimer() {
@@ -40,7 +41,7 @@ function App() {
   }
   
   function startStopClickHandler() {
-    playSound();
+    
     setTimer({
       ...timer,
       isRunning: !timer.isRunning
@@ -61,13 +62,14 @@ function App() {
   }
 
   function playSound() {
-    sound.play();
+    ref.current.play();
   }
 
   function stopSound() {
-    sound.pause();
-    sound.load();
-  }  
+    ref.current.pause();
+    ref.current.load();
+  } 
+
   return (
     <div>
       <Wrapper>
@@ -78,6 +80,7 @@ function App() {
                 onClick={startStopClickHandler}>{timer.isRunning ? 'Stop' : 'Start'}</Button>
         <Button id="reset" onClick={resetClickHandler}>Reset</Button>
       </Wrapper>
+      <audio ref={ref} src="break.mp3" id="beep"></audio>
     </div>
   );
 }
